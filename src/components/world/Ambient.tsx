@@ -19,7 +19,7 @@ export function Petals({ count = 14, intensity = 1 }: { count?: number; intensit
         return (
           <PetalSvg
             key={i}
-            tone={tones[i % 4]}
+            tone={tones[i % 4] ?? "pink"}
             className="absolute top-0"
             style={{
               left: `${rand(i + 7) * 100}%`,
