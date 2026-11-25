@@ -3,6 +3,7 @@ import songAsset from "@/assets/sigo-extranandote.mp3.asset.json";
 import { setSfxEnabled, sfx } from "./sfx";
 
 export type Scene = "intro" | "garden" | "letter" | "song" | "album" | "final";
+export type AlbumPhoto = { src: string; name: string };
 export const JOURNEY: { id: Scene; label: string }[] = [
   { id: "intro", label: "Portada" },
   { id: "garden", label: "Jardín" },
@@ -20,6 +21,8 @@ type World = {
   toggleSound: () => void;
   audioRef: RefObject<HTMLAudioElement | null>;
   playing: boolean;
+  albumPhotos: (AlbumPhoto | null)[];
+  setAlbumPhoto: (index: number, photo: AlbumPhoto | null) => void;
 };
 
 const Ctx = createContext<World | null>(null);
@@ -29,6 +32,7 @@ export function WorldProvider({ children }: { children: ReactNode }) {
   const [visited, setVisited] = useState<Set<Scene>>(() => new Set(["intro"]));
   const [soundOn, setSoundOn] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [albumPhotos, setAlbumPhotos] = useState<(AlbumPhoto | null)[]>([null, null, null]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const go = useCallback((s: Scene) => {
@@ -46,6 +50,10 @@ export function WorldProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const setAlbumPhoto = useCallback((index: number, photo: AlbumPhoto | null) => {
+    setAlbumPhotos((current) => current.map((item, itemIndex) => (itemIndex === index ? photo : item)));
+  }, []);
+
   useEffect(() => {
     const a = audioRef.current;
     if (!a) return;
@@ -61,7 +69,10 @@ export function WorldProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const value = useMemo(() => ({ scene, go, visited, soundOn, toggleSound, audioRef, playing }), [scene, go, visited, soundOn, toggleSound, playing]);
+  const value = useMemo(
+    () => ({ scene, go, visited, soundOn, toggleSound, audioRef, playing, albumPhotos, setAlbumPhoto }),
+    [scene, go, visited, soundOn, toggleSound, audioRef, playing, albumPhotos, setAlbumPhoto],
+  );
   return (
     <Ctx.Provider value={value}>
       {children}

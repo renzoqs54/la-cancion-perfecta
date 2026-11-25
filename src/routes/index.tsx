@@ -3,6 +3,11 @@ import { WorldProvider, useWorld } from "@/components/world/world";
 import { Intro } from "@/components/world/Intro";
 import { Garden } from "@/components/world/Garden";
 import { WorldNav } from "@/components/world/Nav";
+import { LetterScene } from "@/components/world/LetterScene";
+import { SongScene } from "@/components/world/SongScene";
+import { AlbumScene } from "@/components/world/AlbumScene";
+import { FinalScene } from "@/components/world/FinalScene";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,10 +29,28 @@ export const Route = createFileRoute("/")({
 
 function Scenes() {
   const { scene } = useWorld();
+  const reducedMotion = useReducedMotion();
+  const content = scene === "intro" ? <Intro />
+    : scene === "garden" ? <Garden />
+      : scene === "letter" ? <LetterScene />
+        : scene === "song" ? <SongScene />
+          : scene === "album" ? <AlbumScene />
+            : <FinalScene />;
   return (
     <main className="flower-cursor">
-      {scene === "intro" ? <Intro /> : <Garden />}
-      <WorldNav />
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={scene}
+          className="min-h-dvh"
+          initial={{ opacity: 0, y: reducedMotion ? 0 : 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
+          transition={{ duration: reducedMotion ? 0 : 0.42, ease: "easeOut" }}
+        >
+          {content}
+        </motion.div>
+      </AnimatePresence>
+      <WorldNav dark={scene === "song" || scene === "final"} />
     </main>
   );
 }

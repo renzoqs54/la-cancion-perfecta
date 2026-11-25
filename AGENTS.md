@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project decisions
+
+- Keep each narrative scene in a focused component under `src/components/world` and keep shared journey/audio state in `world.tsx`, so scenes stay isolated while navigation remains coordinated.
