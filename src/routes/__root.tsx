@@ -1,3 +1,4 @@
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -38,8 +39,11 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
+
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportLovableError(error, {
+      boundary: "tanstack_root_error_component",
+    });
   }, [error]);
 
   return (
@@ -75,27 +79,38 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
-    // Replace these placeholders with the app's name and description when first building the app.
-    // Each content route, / included, must still set its own head(). Never add og:image or
-    // twitter:image here: every page without its own would inherit the root's preview image.
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Un mundo solo para nosotros ♡" },
-      { name: "description", content: "Un pequeño universo de lirios, recuerdos y canciones, hecho por Renzo para Pilar." },
+      {
+        name: "description",
+        content:
+          "Un pequeño universo de lirios, recuerdos y canciones, hecho por Renzo para Pilar.",
+      },
       { name: "author", content: "Renzo" },
-      { property: "og:title", content: "Un mundo solo para nosotros ♡" },
-      { property: "og:description", content: "Un pequeño universo de lirios, recuerdos y canciones, hecho por Renzo para Pilar." },
+      {
+        property: "og:title",
+        content: "Un mundo solo para nosotros ♡",
+      },
+      {
+        property: "og:description",
+        content:
+          "Un pequeño universo de lirios, recuerdos y canciones, hecho por Renzo para Pilar.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        rel: "icon",
+        href: "/icono-pilar.png",
+        type: "image/png",
+      },
     ],
   }),
   shellComponent: RootShell,
