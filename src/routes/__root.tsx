@@ -107,9 +107,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       {
-        rel: "icon",
-        href: "/icono-pilar.png",
-        type: "image/png",
+  rel: "icon",
+  href: "/icono-pilar.png?v=2",
+  type: "image/png",
       },
     ],
   }),
