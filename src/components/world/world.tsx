@@ -1,5 +1,4 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
-import songAsset from "@/assets/sigo-extranandote.mp3.asset.json";
 import { setSfxEnabled, sfx } from "./sfx";
 
 export type Scene = "intro" | "garden" | "letter" | "song" | "album" | "final";
@@ -76,7 +75,11 @@ export function WorldProvider({ children }: { children: ReactNode }) {
   return (
     <Ctx.Provider value={value}>
       {children}
-      <audio ref={audioRef} src={songAsset.url} preload="metadata" />
+      <audio
+  ref={audioRef}
+  src="/la-cancion-perfecta.mp3"
+  preload="metadata"
+/>
     </Ctx.Provider>
   );
 }
