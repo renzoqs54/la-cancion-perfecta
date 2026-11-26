@@ -13,31 +13,37 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Un mundo solo para nosotros ♡" },
-      { name: "description", content: "Un pequeño universo de lirios, recuerdos y canciones, hecho por Renzo para Pilar." },
+      {
+        name: "description",
+        content: "Un pequeño universo de lirios, recuerdos y canciones, hecho por mí para ti.",
+      },
       { property: "og:title", content: "Un mundo solo para nosotros ♡" },
-      { property: "og:description", content: "Un pequeño universo de lirios, recuerdos y canciones, hecho por Renzo para Pilar." },
+      {
+        property: "og:description",
+        content: "Un pequeño universo de lirios, recuerdos y canciones, hecho por mí para ti.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-  {
-    rel: "icon",
-    type: "image/png",
-    href: "/favicon.png",
-  },
-  {
-    rel: "apple-touch-icon",
-    href: "/favicon.png",
-  },
-  {
-    rel: "preconnect",
-    href: "https://fonts.googleapis.com",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap",
-  },
-],
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "/icono-pilar.png?v=1",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "/icono-pilar.png?v=1",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap",
+      },
+    ],
   }),
   component: Index,
 });
@@ -45,12 +51,14 @@ export const Route = createFileRoute("/")({
 function Scenes() {
   const { scene } = useWorld();
   const reducedMotion = useReducedMotion();
+
   const content = scene === "intro" ? <Intro />
     : scene === "garden" ? <Garden />
       : scene === "letter" ? <LetterScene />
         : scene === "song" ? <SongScene />
           : scene === "album" ? <AlbumScene />
             : <FinalScene />;
+
   return (
     <main className="flower-cursor">
       <AnimatePresence mode="wait" initial={false}>
@@ -60,7 +68,10 @@ function Scenes() {
           initial={{ opacity: 0, y: reducedMotion ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
-          transition={{ duration: reducedMotion ? 0 : 0.42, ease: "easeOut" }}
+          transition={{
+            duration: reducedMotion ? 0 : 0.42,
+            ease: "easeOut",
+          }}
         >
           {content}
         </motion.div>
