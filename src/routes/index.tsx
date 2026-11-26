@@ -26,15 +26,15 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      {
-        rel: "icon",
-        type: "image/png",
-        href: "/icono-pilar.png?v=1",
-      },
-      {
-        rel: "apple-touch-icon",
-        href: "/icono-pilar.png?v=1",
-      },
+  {
+    rel: "icon",
+    type: "image/png",
+    href: "/icono-pilar.png?v=3",
+  },
+  {
+    rel: "apple-touch-icon",
+    href: "/icono-pilar.png?v=3",
+  },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
